@@ -1,10 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
 const initialWorkout = [
-  { name: 'Overhead Press', sets: 3 },
-  { name: 'Lateral Raises', sets: 3 },
-  { name: 'Face Pulls', sets: 3 },
-  { name: 'Incline Bench Press', sets: 3 }
+  {
+    name: 'Overhead Press',
+    sets: [
+      { target: '4–6', weight: '', reps: '' },
+      { target: '6–8', weight: '', reps: '' },
+      { target: '8–10', weight: '', reps: '' }
+    ]
+  },
+  {
+    name: 'Lateral Raises',
+    sets: [
+      { target: '10–12', weight: '', reps: '' },
+      { target: '12–15', weight: '', reps: '' },
+      { target: '12–15', weight: '', reps: '' }
+    ]
+  },
+  {
+    name: 'Face Pulls',
+    sets: [
+      { target: '12–15', weight: '', reps: '' },
+      { target: '12–15', weight: '', reps: '' },
+      { target: '15–20', weight: '', reps: '' }
+    ]
+  },
+  {
+    name: 'Incline Bench Press',
+    sets: [
+      { target: '4–6', weight: '', reps: '' },
+      { target: '6–8', weight: '', reps: '' },
+      { target: '8–10', weight: '', reps: '' }
+    ]
+  }
 ];
 
 const WorkoutTracker = () => {
@@ -18,16 +46,7 @@ const WorkoutTracker = () => {
     if (savedData) {
       setLastSession(savedData);
     }
-
-    const data = initialWorkout.map((exercise) => ({
-      name: exercise.name,
-      sets: Array.from({ length: exercise.sets }, () => ({
-        weight: '',
-        reps: ''
-      }))
-    }));
-
-    setWorkoutData(data);
+    setWorkoutData(initialWorkout);
   }, []);
 
   useEffect(() => {
@@ -79,7 +98,7 @@ const WorkoutTracker = () => {
           <h2>{exercise.name}</h2>
           {exercise.sets.map((set, j) => (
             <div key={j} style={{ marginBottom: '8px' }}>
-              <strong>Set {j + 1}:</strong>
+              <strong>Set {j + 1} ({set.target} reps):</strong>
               <input
                 type="number"
                 placeholder="Weight"
